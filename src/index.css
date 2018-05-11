@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to bottom right, red, yellow);
+  background-repeat: no-repeat;
+}
+img {
+  padding-left: 10px;
+  padding-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
