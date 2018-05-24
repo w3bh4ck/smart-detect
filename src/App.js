@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 //import components
 import Navigation from './components/Navigation';
 import ImageLinkForm from './components/ImageLinkForm';
@@ -35,9 +36,37 @@ class App extends Component {
       input: '',
       imageUrl: '',
       box: {},
-      route: 'signin'
+      route: 'signin',
+      isSignedIn: false,
+      user: {
+          id: '',
+          name: '',
+          email: '',
+          password: '',
+          entries: 0,
+          joined: ''
+      }
     }
   }
+
+loadUser = (data) => {
+  this.setState({user: {
+          id: data.id,
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          entries: data.entries,
+          joined: data.joined
+  }
+  })
+}
+
+componentDidMount(){
+  fetch('http://localhost:3000/')
+  .then(response => response.json())
+  .then(console.log);
+}
+
 
   //function for the box that get the location of the face
 calculateFaceLocation = (data)=>{
@@ -45,7 +74,6 @@ calculateFaceLocation = (data)=>{
   const image = document.getElementById("inputImage");
   const height = Number(image.height);
   const width = Number(image.width);
-  console.log(height, width);
   return {
     leftCol: clarifaiFace.left_col * width,
     topRow: clarifaiFace.top_row * height,
@@ -65,6 +93,11 @@ onInputChange = (event) =>{
 
 //function to run when the route changes
 onRouteChange = (route) => {
+  if (route === "signout"){
+    this.setState({isSignedIn: false});
+  } else if (route === "home"){
+    this.setState({isSignedIn: true});
+  }
   this.setState({route: route});
 }
 
@@ -85,7 +118,7 @@ onButtonSubmit = () =>{
       <Particles className="particles"
          params={particleConfig}
         />
-        <Navigation onRouteChange={this.onRouteChange} />
+        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} />
         <Logo />
         
         {this.state.route === 'home' ? 
@@ -101,7 +134,7 @@ onButtonSubmit = () =>{
           this.state.route === 'signin' ?
           <Signin onRouteChange = {this.onRouteChange} />
           :
-            <Register onRouteChange = {this.onRouteChange} />
+            <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} />
         )
         }
       </div>

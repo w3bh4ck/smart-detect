@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import logoStyle from '../styling/ImageLinkForm.css';
 
 const ImageLinkForm = ({onInputChange, onButtonSubmit}) => {

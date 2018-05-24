@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Recognition from '../styling/FaceRecognition.css';
+
 const  FaceRecognition = ({imageUrl, box}) => {
     return(
         <div className="center ma">
