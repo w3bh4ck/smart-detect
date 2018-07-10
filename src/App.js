@@ -61,11 +61,11 @@ loadUser = (data) => {
   })
 }
 
-componentDidMount(){
-  fetch('http://localhost:3000/')
-  .then(response => response.json())
-  .then(console.log);
-}
+// componentDidMount(){
+//   fetch('http://localhost:3000/')
+//   .then(response => response.json())
+//   .then(console.log);
+// }
 
 
   //function for the box that get the location of the face
@@ -108,7 +108,17 @@ onButtonSubmit = () =>{
   app.models.predict(
   Clarifai.FACE_DETECT_MODEL, 
   this.state.input)
-    .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+    .then(response => {
+      if (response){
+        fetch('http://localhost:3000/image', {
+            method: "put",
+              headers: {'content-type': 'application/json'},
+              body: JSON.stringify({
+                  id: this.state.user.id
+              })
+        })
+      }
+      this.displayFaceBox(this.calculateFaceLocation(response))})
     .catch(err => console.log(err));
 }
 
@@ -123,7 +133,7 @@ onButtonSubmit = () =>{
         
         {this.state.route === 'home' ? 
         <div>
-        <Rank />
+        <Rank name={this.state.user.name} entries={this.state.user.entries} />
         <ImageLinkForm 
         onInputChange={this.onInputChange} 
         onButtonSubmit={this.onButtonSubmit}
