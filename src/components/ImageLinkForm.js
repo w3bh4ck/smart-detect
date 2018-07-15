@@ -9,16 +9,16 @@ const ImageLinkForm = ({onInputChange, onButtonSubmit}) => {
               
             </div>
 
-            <div class="input-group mb-3 px-5">
+            <div className="input-group mb-1 px-5">
                 <input type="text" 
-                    class="form-control" placeholder="Image Url..." 
+                    className="form-control" placeholder="Image Url..." 
                     aria-label="Recipient's username" 
                     aria-describedby="button-addon2" 
                     onChange={onInputChange}
                 />
-                <div class="input-group-append">
+                <div className="input-group-append">
                     <button 
-                    class="btn btn-outline-secondary text-white btn-default" 
+                    className="btn btn-outline-secondary text-white btn-default" 
                     type="button" id="button-addon2"
                     onClick={onButtonSubmit}
                     >Scan Image</button>

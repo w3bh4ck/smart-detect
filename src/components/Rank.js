@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 
 
-class Rank extends Component {
-  render() {
-    return (
-      <div style={{fontFamily: "courier new, cursive"}} >
-        <div className="white f3">
-            {'Lucky, your current rank is...'}
-        </div>
-        <div className="white f2">
-            {'#5'}
-        </div>
+const Rank = ({name, entries}) => {
+  return (
+    <div style={{fontFamily: "courier new, cursive"}} >
+      <div className="white f3">
+         <h1> {`${name} Your current rank is....`} </h1>
       </div>
-    );
-  }
+      <div className="white f2">
+          {`${entries}`}
+      </div>
+    </div>
+  );
 }
 
 export default Rank;
