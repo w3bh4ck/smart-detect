@@ -18,7 +18,7 @@ const ImageLinkForm = ({onInputChange, onButtonSubmit}) => {
                 />
                 <div class="input-group-append">
                     <button 
-                    class="btn btn-outline-secondary text-white btn-default" 
+                    class="btn btn-outline-secondary text-white" 
                     type="button" id="button-addon2"
                     onClick={onButtonSubmit}
                     >Scan Image</button>
