@@ -8,7 +8,7 @@ import Logo from './components/Logo';
 import Signin from './components/signin/Signin';
 import Register from './components/register/Register';
 import FaceRecognition from './components/FaceRecognition';
-import Style from './App.css';
+import './App.css';
 import tachyons from 'tachyons';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
@@ -23,7 +23,7 @@ const particleConfig = {
       value: 70,
       density: {
         enable: true,
-        value_area: 800
+        value_area: 2000
       }
     }
   }
@@ -61,11 +61,6 @@ loadUser = (data) => {
   })
 }
 
-componentDidMount(){
-  fetch('http://localhost:3000/')
-  .then(response => response.json())
-  .then(console.log);
-}
 
 
   //function for the box that get the location of the face
@@ -105,38 +100,27 @@ onRouteChange = (route) => {
 //get info from the API when the button is clicked
 onButtonSubmit = () =>{
   this.setState({imageUrl: this.state.input});
-  app.models.predict(
-  Clarifai.FACE_DETECT_MODEL, 
-  this.state.input)
-    .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
-    .catch(err => console.log(err));
+  app.models.predict("c0c0ac362b03416da06ab3fa36fb58e3", this.state.input).then(response => {
+      console.log(response.outputs[0].data.regions);
+      this.displayFaceBox(this.calculateFaceLocation(response))}).catch(err => console.log(err));
 }
 
   render() {
     return (
-      <div className="App">
+      <div className="app">
+
       <Particles className="particles"
          params={particleConfig}
         />
-        <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} />
+        <Navigation />
         <Logo />
         
-        {this.state.route === 'home' ? 
-        <div>
-        <Rank />
         <ImageLinkForm 
         onInputChange={this.onInputChange} 
         onButtonSubmit={this.onButtonSubmit}
         />
         <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
-        </div>
-        :(
-          this.state.route === 'signin' ?
-          <Signin onRouteChange = {this.onRouteChange} />
-          :
-            <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} />
-        )
-        }
+      
       </div>
     );
   }

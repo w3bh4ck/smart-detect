@@ -1,19 +1,28 @@
 import React from 'react';
-import logoStyle from '../styling/ImageLinkForm.css';
 
 const ImageLinkForm = ({onInputChange, onButtonSubmit}) => {
   
     return (
         <div>
-            <div className="main br3 shadow-6">
-                <p className="f5 white">Detect Faces in your picture</p>
-                <div className="formContainer center">
-                    <input type='text' className="f4 pa2  center" onChange={onInputChange}/>
+            <div>
+                <p className="text-center text-white">Detect Faces in your picture</p>
+              
+            </div>
+
+            <div class="input-group mb-3 px-5">
+                <input type="text" 
+                    class="form-control" placeholder="Image Url..." 
+                    aria-label="Recipient's username" 
+                    aria-describedby="button-addon2" 
+                    onChange={onInputChange}
+                />
+                <div class="input-group-append">
                     <button 
-                    className=" grow f4 link ph3 pv2 dib white "
+                    class="btn btn-outline-secondary text-white btn-default" 
+                    type="button" id="button-addon2"
                     onClick={onButtonSubmit}
-                    >Detect</button>
-                </div>
+                    >Scan Image</button>
+                 </div>
             </div>
         </div>
     );
