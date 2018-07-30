@@ -4,10 +4,6 @@ const ImageLinkForm = ({onInputChange, onButtonSubmit}) => {
   
     return (
         <div>
-            <div>
-                <p className="text-center text-white">Detect Faces in your picture</p>
-              
-            </div>
 
             <div className="input-group mb-1 px-5">
                 <input type="text" 

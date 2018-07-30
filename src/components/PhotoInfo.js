@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const  PhotoInfo = () => {
-    return(
-        <div>
-            <p className="text-center">Photo Information</p>
-            <p></p>
-        </div>
-    );
+class PhotoInfo extends Component {
+    constructor(props){
+        super(props);
+       
+    }
+    
+    componentDidMount(){
+        console.log('from info', this.props.info);
+    }
+
+    render(){
+        return(
+            <div>
+                <p className="text-center text-white">Photo Information</p>
+                <p className="text-white">Age: </p>
+            </div>
+        );
+    }
 }
 
 export default PhotoInfo;
