@@ -9,8 +9,6 @@ import './App.css';
 import tachyons from 'tachyons';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
-import PhotoInfo from './components/PhotoInfo';
-
 const app = new Clarifai.App({
   apiKey: 'daa2d1dd523a45df93cc157a9cd933ab'
  });
@@ -18,10 +16,10 @@ const app = new Clarifai.App({
 const particleConfig = {
   particles: {
     number: {
-      value: 70,
+      value: 25,
       density: {
         enable: true,
-        value_area: 2000
+        value_area: 800
       }
     }
   }
@@ -34,22 +32,10 @@ class App extends Component {
       input: '',
       imageUrl: '',
       box: {},
-      info: {}
+      info: {}, 
+      submitted: false
     }
   }
-
-// loadUser = (data) => {
-//   this.setState({user: {
-//           id: data.id,
-//           name: data.name,
-//           email: data.email,
-//           password: data.password,
-//           entries: data.entries,
-//           joined: data.joined
-//   }
-//   })
-// }
-
 
 
   //function for the box that get the location of the face
@@ -75,10 +61,7 @@ onInputChange = (event) =>{
  this.setState({input: event.target.value});
 }
 
-
-
-//get info from the API when the button is clicked
-onButtonSubmit = () =>{
+mainAction = () => {
   app.models.predict("c0c0ac362b03416da06ab3fa36fb58e3", this.state.input).then(response => {
     let imageData = {
       age: {
@@ -103,17 +86,25 @@ onButtonSubmit = () =>{
     //cultural
     imageData.cultural.appearance = response.outputs[0].data.regions[0].data.face.multicultural_appearance.concepts[0].name;
     imageData.cultural.percent = Math.floor(response.outputs[0].data.regions[0].data.face.multicultural_appearance.concepts[0].value * 100);
-    console.log("image data", imageData);
     
         
     this.setState({
       imageUrl: this.state.input,
-      info: imageData
+      info: imageData,
+      submitted: true
+    }, () => {
+      console.log('info', this.state);
+      
     });
-  // console.log('imageData', imageData);
-  
-  this.displayFaceBox(this.calculateFaceLocation(response))}).catch(err => console.log(err));
-  
+   
+
+    this.displayFaceBox(this.calculateFaceLocation(response))}).catch(err => console.log(err)); 
+}
+
+//get info from the API when the button is clicked
+onButtonSubmit = () =>{
+   this.mainAction();
+   
 }
 
   render() {
@@ -124,9 +115,13 @@ onButtonSubmit = () =>{
       />
       <Navigation />
         <Logo />
-          
-          <PhotoInfo />
-        
+            <div>
+                <h3 className="text-center text-white">Photo Information</h3>
+                {this.state.submitted && (<p className="text-white">Predicted Age: <strong>{this.state.info.age.years}</strong> with Reliability of <strong>{this.state.info.age.percent}%</strong> </p>)}
+            </div>
+            <div>
+                {this.state.submitted && (<p className="text-white">Predicted Appearance:  <strong>{this.state.info.cultural.appearance}</strong>  with Reliability of <strong>{this.state.info.cultural.percent}%</strong> </p>)}
+            </div>
         <div className="row">
           <div className="col-md-6 offset-md-3 pt-2">
               <ImageLinkForm 
