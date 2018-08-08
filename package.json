@@ -2,6 +2,7 @@
   "name": "smart-detect",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://myname.github.io/myapp",
   "dependencies": {
     "clarifai": "^2.7.1",
     "cors": "^2.8.4",
