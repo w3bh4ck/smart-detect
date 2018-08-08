@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Navigation = ( {onRouteChange, isSignedIn} ) => {
+const Navigation = ( ) => {
       return(
             <nav style = {{display: 'flex', justifyContent: 'flex-start'}}>
-                <p>Smart Brain</p>
+                <h2 className="text-white px-2">Smart Brain</h2>
             </nav>
       );
     

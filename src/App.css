@@ -1,10 +1,11 @@
 .app {
   text-align: center;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+h2 {
+  font-family: 'Faster One', cursive;
+}
+h3{
+  font-family: 'Monoton', cursive;
 }
 
 .center{
@@ -42,4 +43,8 @@
 
 .btn{
   background:  #00111a;
+}
+
+strong{
+  font-family: 'Russo One', sans-serif;
 }
